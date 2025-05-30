@@ -1,0 +1,6 @@
+#lang sicp
+(define pascal (
+  (1)
+ (1 1)
+ (1 2 1)
+ ))
