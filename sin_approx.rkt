@@ -1,5 +1,14 @@
 #lang sicp
 (define (sin x)
   (if (< x 0.1) x
-      (- (* 3 (sin (/ x 3)))
-         (* 4 (expt (sin (/ x 3)) 3)))))
+      (refine (step x))))
+
+(define (step x)
+  (sin (/ x 3)))
+
+(define (refine x)
+  (- (* 3 x)
+     (* 4 (cube x))
+  ))
+
+(define (cube x) (* x x x))
