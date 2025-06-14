@@ -1,0 +1,3 @@
+#lang sicp
+(define (pow base n)
+  (if (= n 0) 1 (* n (pow (- n 1)))))

@@ -1,0 +1,8 @@
+#lang sicp
+(define (fast-mult a b)
+  (cond ((= b 0) 0)
+        ((even b) (fast-mult (double a) (halve b)))
+        ((true) (+ a (fast-mult a (- b 1))))))
+
+(define (even b)
+  (= 0 (mod b 2)))
