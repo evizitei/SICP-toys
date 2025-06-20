@@ -2,6 +2,14 @@
 (define (sum-thing a b proc next)
   (if (> a b) 0 (+ (proc a) (sum-thing (next a) b proc next))))
 
+(define (i-sum a b proc next)
+  (iter-sum a b proc next 0))
+
+(define (iter-sum a b proc next acc)
+  (if (> a b)
+      acc
+      (iter-sum (next a) b proc next (+ acc (proc a)))))
+
 (define (sum-integers a b)
   (sum-thing a b (lambda (x) x) inc)
 )
@@ -37,7 +45,9 @@
 
 (sum-thing 5 9 cube inc)
 (sum-thing 5 9 (lambda (x) x) inc)
+(i-sum 5 9 cube inc)
+(i-sum 5 9 (lambda (x) x) inc)
 
 (cube 0.02)
 (integral cube 0 1 0.0001)
-(simpsons-rule 0 1 cube 10)
+(simpsons-rule 0 1 cube 1000)
