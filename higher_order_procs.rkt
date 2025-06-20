@@ -20,6 +20,17 @@
 (define (integral f a b dx)
   (* (sum-thing (+ a (/ dx 2.0)) b f (lambda (x) (+ x dx))) dx))
 
+(define (simpsons-rule a b f n)
+  (define (simp-h) (/ (- b a) n))
+  (define (simp-f k) (f (+ a (* k (simp-h)))))
+  (define (simp-term k)
+    (cond ((= k 0) (simp-f k))
+          ((= k n) (simp-f k))
+          ((even? k) (* 2 (simp-f k)))
+          (else (* 4 (simp-f k)))))
+  (* (/ (simp-h) 3)
+     (sum-thing 0 n simp-term inc)))
+
 (sum-integers 5 9)
 (sum-cubes 5 9)
 (pi-sum 5 9)
@@ -29,3 +40,4 @@
 
 (cube 0.02)
 (integral cube 0 1 0.0001)
+(simpsons-rule 0 1 cube 10)
