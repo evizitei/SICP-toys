@@ -1,6 +1,6 @@
 #lang sicp
 (define (sum-thing a b proc next)
-  (if (> a b) 0 (+ (proc a) (sum-thing (next a) b proc))))
+  (if (> a b) 0 (+ (proc a) (sum-thing (next a) b proc next))))
 
 (define (sum-integers a b)
   (sum-thing a b (lambda (x) x) inc)
@@ -17,9 +17,15 @@
 (define (inc n) (+ n 1))
 (define (cube n) (* n n n))
 
+(define (integral f a b dx)
+  (* (sum-thing (+ a (/ dx 2.0)) b f (lambda (x) (+ x dx))) dx))
+
 (sum-integers 5 9)
 (sum-cubes 5 9)
 (pi-sum 5 9)
 
-(sum-thing 5 9 cube)
-(sum-thing 5 9 (lambda (x) x))
+(sum-thing 5 9 cube inc)
+(sum-thing 5 9 (lambda (x) x) inc)
+
+(cube 0.02)
+(integral cube 0 1 0.0001)
